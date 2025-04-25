@@ -7,6 +7,7 @@ operador = input("Intruduce un operador (+, -, *, /): ")
 num2 = float(input("Intruduce otro número: "))
 
 resultado = None
+mensaje = ""
 
 if operador == "+":
     resultado = num1 + num2

@@ -16,7 +16,7 @@ elif mes in [4, 6, 9, 11] and 1 <= dia <= 30:
 elif mes == 2 and 1 <= dia <= 28:
     print(f"la fecha {dia}/{mes}/{año} es válida.")
 elif mes == 2 and dia == 29:
-    if (año % 4 == 0 and año % 100 != 0) or (año % 400 == 0):
+    if(año % 4 == 0 and año % 100 != 0) or (año % 400 == 0):
         print(f"la fecha {dia}/{mes}/{año} es válida.")
     else:
         print(f"la fecha {dia}/{mes}/{año} no es válida.")

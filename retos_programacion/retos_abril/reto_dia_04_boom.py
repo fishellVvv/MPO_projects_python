@@ -14,7 +14,7 @@
 # 1
 # ¡BOOM!
 
-duracion_resplandor = int (input ("- La Antonia: Un resplandor...\n Indica la duración del resplandor: ")) # solicitamos la duración de la cuenta atrás
+duracion_resplandor = int(input("- La Antonia: Un resplandor...\n Indica la duración del resplandor: ")) # solicitamos la duración de la cuenta atrás
 
 for i in range(duracion_resplandor, 0, -1): # recorremos en un bucle todas las posiciones desde el valor dado hasta 1
     print(i, end=" ")

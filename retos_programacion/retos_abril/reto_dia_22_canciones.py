@@ -13,12 +13,22 @@ import random
 
 canciones_leidas = set()
 lista_canciones = [
-    {"pista": "Tiene algo que ver con un color primario y un vehículo acuático... creo",
-    "cancion": "Yellow Submarine",
-    "artista": "(The Beatles)"},
-    {"pista": "Una ciudad con nombre de pecado... y mucha fama",
-    "cancion": "Viva Las Vegas",
-    "artista": "(Elvis Presley)"}
+    {"pista": "Tiene algo que ver con un color primario y un vehículo acuático... creo", "cancion": "Yellow Submarine", "artista": "(The Beatles)"},
+    {"pista": "Una ciudad con nombre de pecado... y mucha fama", "cancion": "Viva Las Vegas", "artista": "(Elvis Presley)"},
+    {"pista": "Una noche... una especie de jinete... fantasmal", "cancion": "Ghost Riders in the Sky", "artista": "(Johnny Cash)"},
+    {"pista": "Es como si fueras rápido, salvaje... y hubieras nacido para ello", "cancion": "Born to Be Wild", "artista": "(Steppenwolf)"},
+    {"pista": "Algo que deseas hacer con mucha fuerza... como liberarte", "cancion": "I Want to Break Free", "artista": "(Queen)"},
+    {"pista": "Una reina con intenciones... poco pacíficas", "cancion": "Killer Queen", "artista": "(Queen)"},
+    {"pista": "Suena a escalera celestial o algo así...", "cancion": "Stairway to Heaven", "artista": "(Led Zeppelin)"},
+    {"pista": "Un alojamiento turístico con nombre elegante", "cancion": "Hotel California", "artista": "(Eagles)"},
+    {"pista": "Huele como el espíritu... pero de adolescentes", "cancion": "Smells Like Teen Spirit", "artista": "(Nirvana)"},
+    {"pista": "Una autopista hacia un destino bastante caluroso", "cancion": "Highway to Hell", "artista": "(AC/DC)"},
+    {"pista": "Una sacudida eléctrica muy sonora", "cancion": "Thunderstruck", "artista": "(AC/DC)"},
+    {"pista": "Una forma cariñosa de referirse a una hija encantadora", "cancion": "Sweet Child O' Mine", "artista": "(Guns N' Roses)"},
+    {"pista": "Nombre de mujer que también es una tormenta emocional", "cancion": "November Rain", "artista": "(Guns N' Roses)"},
+    {"pista": "Cuando nada más importa... salvo la melodía", "cancion": "Nothing Else Matters", "artista": "(Metallica)"},
+    {"pista": "Un número... temido por supersticiones y bestias", "cancion": "The Number of the Beast", "artista": "(Iron Maiden)"},
+    {"pista": "Una advertencia metálica para quien rompe la ley", "cancion": "Breaking the Law", "artista": "(Judas Priest)"}
 ]
 
 print("Bienvenido al Juego de Adivinar la Canción (JAC)")

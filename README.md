@@ -21,7 +21,7 @@ Repositorio de ejercicios y retos correspondientes a la asignatura de MPO del ci
 
 Desarrollar la lógica de programación con Python y aplicar buenas prácticas mientras se avanza en los contenidos del módulo.
 
-## 🧠 Autor
+## ☕ Autor
 
 Víctor ([@fishellVvv](https://github.com/fishellVvv))
 

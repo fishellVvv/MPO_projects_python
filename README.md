@@ -7,11 +7,12 @@ Repositorio de ejercicios y retos correspondientes a la asignatura de MPO del ci
 - **`.idea/` y `.vscode/`**  
   Archivos de configuración del entorno de desarrollo (PyCharm y VS Code).
 
-- **`retos_programacion/retos_abril/`**  
+- **`retos_programacion/`**  
   Colección de retos de programación. Ideales para practicar lógica y consolidar lo aprendido.
   - Retos 30 días Abril
+  - Retos online
 
-- **`UT1_fundamentos_de_python/ej_practicos/`**  
+- **`UT1_fundamentos_de_python/`**  
   Ejercicios prácticos de introducción a Python: sintaxis básica, variables, tipos, operaciones, etc.
 
 - **`UT2_estructuras_de_control/`**  

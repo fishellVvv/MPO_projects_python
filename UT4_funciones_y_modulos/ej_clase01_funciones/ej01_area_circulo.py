@@ -13,5 +13,5 @@ def calcular_area_circulo(r):
     return area
 
 print("Calculadora de áreas de círculos.")
-radio = int(input("Introduce el rádio de tu círculo: "))
+radio = float(input("Introduce el rádio de tu círculo: "))
 print(f"El area del círculo de radio {radio} es {calcular_area_circulo(radio):.2f}")

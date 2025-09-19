@@ -9,7 +9,7 @@ def condigurador_bienvenida(nombre, apellido, edad):
     """Imprime un mensaje de bienvenida personalizado"""
     print(f"Bienvenid@ {nombre} {apellido}, ¡para nada aparentas tener {edad} años!")
 
-print("Condigurador de mensajes de bienvenida")
+print("ConDigurador de mensajes de bienvenida")
 nombre = input("Indica un nombre: ")
 apellido = input("Indica un apellido: ")
 edad = int(input("Indica una edad: "))

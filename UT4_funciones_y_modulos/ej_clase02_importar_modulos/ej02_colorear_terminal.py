@@ -28,6 +28,8 @@ El programa debe incluir las siguientes funcionalidades:
 
 import os
 from pathlib import Path
+from genericpath import isfile
+from colorama import Fore, Style
 
 def main():
     os.chdir(Path(__file__).resolve().parent) # Sitúa el cwd en la carpeta del script
@@ -42,12 +44,19 @@ def main():
 
         match opcion:
             case 1:
-                print("\nListado de archivos:\n📂 .")
+                ruta = input("Introduce la ruta que quieres consultar: ")
+                if ruta[-1] != "\\": ruta = ruta + "\\"
+
                 try:
-                    imprimir_arbol()
-                except Exception as e:
-                    print(f"❌ Error listando el directorio: {e}")
+                    archivos = listar_archivos(ruta)
+                    print()
+                    for archivo in archivos:
+                        extension = obtener_extension(ruta, archivo)
+                        print(colorear(extension) + f"{archivo}" + Style.RESET_ALL)
+                except FileNotFoundError:
+                    print(f"❌ Error: la ruta {ruta} no existe")
                 input("\nPulsa enter para continuar...")
+
             case 2:
                 nombre = input("Indica el archivo a verificar: ").strip()
                 if existe_archivo(nombre):
@@ -55,6 +64,7 @@ def main():
                 else:
                     print(f"❌ El archivo {nombre} no existe.")
                 input("\nPulsa enter para continuar...")
+
             case 3:
                 nombre = input("Indica el nombre del nuevo archivo: ").strip()
                 if existe_archivo(nombre):
@@ -63,6 +73,7 @@ def main():
                     archivo = crear_archivo(nombre)
                     print(f"✅ Archivo {archivo.name} creado con exito.")
                 input("\nPulsa enter para continuar...")
+
             case 4:
                 nombre = input("Indica el nombre de la nueva carpeta: ").strip()
                 try:
@@ -71,9 +82,11 @@ def main():
                 except FileExistsError:
                     print(f"❌ Error: el archivo {nombre} ya existe")
                 input("\nPulsa enter para continuar...")
+
             case 0:
                 print("Saliendo...")
                 break
+
             case _:
                 print("Por favor, introduce un número del 0 al 4.")
     
@@ -87,36 +100,11 @@ def menu_principal():
     print("4. Crear un nuevo directorio")
     print("0. Salir\n")
 
-def imprimir_arbol(ruta='.'):
-    # Árbol de archivos y carpetas (dirs primero).
-    base = Path(ruta)
-
-    def clave_orden(e: os.DirEntry):
-        # Ordena carpetas y luego archivos
-        tipo = not e.is_dir(follow_symlinks=False)
-        nombre = e.name.casefold()
-        return (tipo, nombre)
-
-    def _listar(dirpath: Path, prefijo=""):
-        # Lista cada paso del arbol
-        with os.scandir(dirpath) as iteracion:
-            entradas = (e for e in iteracion if not e.name.startswith('.'))
-            entradas = sorted(entradas, key=clave_orden)
-
-        total = len(entradas)
-        for i, entrada in enumerate(entradas, 1):
-            conector = " └" if i == total else " ├"
-            if entrada.is_dir():
-                print(f"{prefijo}{conector}📂 {entrada.name}")
-                extension = "  " if i == total else " │"
-                _listar(dirpath / entrada.name, prefijo + extension)
-            else:
-                print(f"{prefijo}{conector}📄 {entrada.name}")
-
+def listar_archivos(ruta = "."):
     try:
-        _listar(base)
-    except Exception:
-        raise Exception
+        return os.listdir(ruta)
+    except FileNotFoundError:
+        raise FileNotFoundError
 
 def existe_archivo(nombre):
     return os.path.exists(nombre)
@@ -129,6 +117,26 @@ def crear_directorio(nombre):
         os.mkdir(nombre)
     except FileExistsError:
         raise FileExistsError
+    
+def obtener_extension(ruta, archivo):
+    if os.path.isdir(ruta+archivo):
+        return "dir"
+    elif len(archivo.split(".")) == 1:
+        return "file"
+    else:
+        return "." + archivo.split(".")[-1]
+    
+def colorear(extension):
+    if extension == "dir":
+        return Fore.MAGENTA
+    elif extension == ".txt":
+        return Fore.GREEN
+    elif extension in [".jpg", ".png"]:
+        return Fore.BLUE
+    elif extension in [".mp3", ".wav"]:
+        return Fore.YELLOW
+    else:
+        return Fore.WHITE
 
 if __name__ == '__main__':
     main()

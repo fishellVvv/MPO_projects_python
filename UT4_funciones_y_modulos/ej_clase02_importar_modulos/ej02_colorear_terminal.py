@@ -1,35 +1,35 @@
 '''
-Ejercicio 1 - Gestor de Archivos con Python (módulo os)
+Ejercicio 2 - Coloreando la Terminal con colorama
 
-Desarrollar un programa en Python que permita gestionar archivos y directorios mediante un menú interactivo, utilizando las funciones principales del módulo os.
+Vamos a evolucionar el programa del ejercicio anterior para que los mensajes se muestren con colores utilizando el módulo colorama.
 
-El programa debe incluir las siguientes funcionalidades:
+Concretamente vamos a modificar la opción de listar archivos.
 
-1. Menú principal con las siguientes opciones:
-    Listar archivos del directorio actual
-    Verificar si un archivo existe
-    Crear un nuevo archivo
-    Crear un nuevo directorio
-    Salir
-
-2. Implementación de cada opción:
-    Listar archivos: Mostrar todos los archivos y carpetas en el directorio actual.
-    Verificar existencia: Pedir al usuario un nombre de archivo y comprobar si existe.
-    Crear archivo: Solicitar un nombre y generar un archivo vacío.
-    Crear directorio: Pedir un nombre y crear una carpeta nueva.
-
-3. Manejo de errores:
-    Evitar que el programa falle si el usuario ingresa datos incorrectos.
-    Mostrar mensajes claros (ej: "❌ El archivo no existe", "✅ Operación exitosa").
-
-4. Bucle infinito:
-    El menú debe mostrarse continuamente hasta que el usuario elija "Salir".
+En vez de imprimir los nombres de los archivos directamente, vamos a colorearlos según su tipo:
+    - Archivos de texto (.txt) en verde.
+    - Archivos de imagen (.jpg, .png) en azul.
+    - Archivos de audio (.mp3, .wav) en amarillo.
+    - Otros archivos en blanco.
 '''
 
+from operator import concat
 import os
 from pathlib import Path
-from genericpath import isfile
-from colorama import Fore, Style
+from colorama import Fore
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from funciones_utiles.lectura import leer_entero, leer_string
+from funciones_utiles.escritura import imprimir, imp_marco, pulsa_enter
+
+colm = {
+    "MENU": Fore.BLUE,
+    "EXIT": Fore.RED,
+    "SUCCESS": Fore.LIGHTGREEN_EX,
+    "ERROR": Fore.LIGHTRED_EX,
+    "INPUT": Fore.LIGHTYELLOW_EX,
+    "CONTINUE": Fore.LIGHTWHITE_EX
+}
 
 def main():
     os.chdir(Path(__file__).resolve().parent) # Sitúa el cwd en la carpeta del script
@@ -37,68 +37,72 @@ def main():
     while True:
         menu_principal()
         try:
-            opcion = int(input("Selecciona una opción: "))
+            opcion = leer_entero("Selecciona una opción: ", colm["INPUT"])
         except ValueError:
-            print("Por favor, introduce un número del 0 al 4.")
+            imprimir("❌ Error: introduce un número del 0 al 4.", colm["ERROR"])
             continue
 
         match opcion:
             case 1:
-                ruta = input("Introduce la ruta que quieres consultar: ")
-                if ruta[-1] != "\\": ruta = ruta + "\\"
+                ruta = leer_string("Introduce la ruta que quieres consultar: ", colm["INPUT"])
+                if ruta == "":
+                    ruta = "."
+                    if ruta[-1] != "\\":
+                        ruta = ruta + "\\"
 
                 try:
                     archivos = listar_archivos(ruta)
                     print()
                     for archivo in archivos:
-                        extension = obtener_extension(ruta, archivo)
-                        print(colorear(extension) + f"{archivo}" + Style.RESET_ALL)
+                        imprimir(archivo, colorear(obtener_extension(ruta, archivo)))
                 except FileNotFoundError:
-                    print(f"❌ Error: la ruta {ruta} no existe")
-                input("\nPulsa enter para continuar...")
+                    imprimir(f"❌ Error: la ruta {ruta} no existe", colm["ERROR"])
+                pulsa_enter(colm["CONTINUE"])
 
             case 2:
-                nombre = input("Indica el archivo a verificar: ").strip()
+                nombre = leer_string("Indica el archivo a verificar: ", colm["INPUT"]).strip()
                 if existe_archivo(nombre):
-                    print(f"✅ El archivo {nombre} existe.")
+                    imprimir(f"✅ El archivo {nombre} existe.", colm["SUCCESS"])
                 else:
-                    print(f"❌ El archivo {nombre} no existe.")
-                input("\nPulsa enter para continuar...")
+                    imprimir(f"❌ El archivo {nombre} no existe.", colm["ERROR"])
+                pulsa_enter(colm["CONTINUE"])
 
             case 3:
-                nombre = input("Indica el nombre del nuevo archivo: ").strip()
+                nombre = leer_string("Indica el nombre del nuevo archivo: ", colm["INPUT"]).strip()
                 if existe_archivo(nombre):
-                    print(f"❌ Error: el archivo {nombre} ya existe")
+                    imprimir(f"❌ Error: el archivo {nombre} ya existe", colm["ERROR"])
                 else:
                     archivo = crear_archivo(nombre)
-                    print(f"✅ Archivo {archivo.name} creado con exito.")
-                input("\nPulsa enter para continuar...")
+                    imprimir(f"✅ Archivo {archivo.name} creado con exito.", colm["SUCCESS"])
+                pulsa_enter(colm["CONTINUE"])
 
             case 4:
-                nombre = input("Indica el nombre de la nueva carpeta: ").strip()
+                nombre = leer_string("Indica el nombre de la nueva carpeta: ", colm["INPUT"]).strip()
                 try:
                     crear_directorio(nombre)
-                    print(f"✅ Carpeta {nombre} creada con exito.")
+                    imprimir(f"✅ Carpeta {nombre} creada con exito.", colm["SUCCESS"])
                 except FileExistsError:
-                    print(f"❌ Error: el archivo {nombre} ya existe")
-                input("\nPulsa enter para continuar...")
+                    imprimir(f"❌ Error: el archivo {nombre} ya existe", colm["ERROR"])
+                pulsa_enter(colm["CONTINUE"])
 
             case 0:
-                print("Saliendo...")
+                imprimir("Saliendo...", colm["EXIT"])
                 break
 
             case _:
-                print("Por favor, introduce un número del 0 al 4.")
+                imprimir("❌ Error: introduce un número del 0 al 4.", colm["ERROR"])
     
-    print("\nFin del programa.")
+    imprimir("\nFin del programa.", colm["EXIT"])
 
 def menu_principal():
-    print("\n--GESTOR DE ARCHIVOS--\n")
-    print("1. Listar archivos del directorio actual")
-    print("2. Verificar si un archivo existe")
-    print("3. Crear un nuevo archivo")
-    print("4. Crear un nuevo directorio")
-    print("0. Salir\n")
+    print()
+    imp_marco("""GESTOR DE ARCHIVOS
+1. Listar archivos de un directorio
+2. Verificar si un archivo existe
+3. Crear un nuevo archivo
+4. Crear un nuevo directorio
+0. Salir""",
+    colm["MENU"])
 
 def listar_archivos(ruta = "."):
     try:

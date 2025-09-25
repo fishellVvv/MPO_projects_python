@@ -11,4 +11,4 @@ for p in texto:
     if len(p) > len(palabra_larga):
         palabra_larga = p
 
-print(f"Hay {caracteres} letras y {palabras} palabras, la palabra más larga es {palabra_larga}.")
+print(f"Hay {palabras} palabras y {caracteres} letras, la palabra más larga es '{palabra_larga}'.")

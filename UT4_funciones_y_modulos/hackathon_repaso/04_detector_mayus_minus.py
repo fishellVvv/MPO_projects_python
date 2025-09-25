@@ -3,10 +3,10 @@ texto = input("Introduce una frase: ")
 mayus = 0
 minus = 0
 
-for letra in texto:
-    if letra.isupper():
+for c in texto:
+    if c.isupper():
         mayus += 1
-    elif letra.islower():
+    elif c.islower():
         minus += 1
 
-print(f"Hay {minus} minusculas y {mayus} mayusculas.")
+print(f"Hay {minus} minúsculas y {mayus} mayúsculas.")

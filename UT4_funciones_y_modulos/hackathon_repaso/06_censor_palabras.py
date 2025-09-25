@@ -1,10 +1,7 @@
-censura = ["tonto", "feo"]
-
+censura = ["tonto", "feo", "culo", "pedo", "pis"]
 texto = input("Escribe una frase: ")
-lista_palabras = texto.split()
 
-for p in lista_palabras:
-    if p in censura:
-        print("*"*len(p))
-    else:
-        print(p)
+for p in censura:
+    texto = texto.replace(p, "*"*len(p))
+
+print(texto)

@@ -9,7 +9,7 @@ def imprimir(mensaje, color = None):
         mensaje = color + mensaje + Style.RESET_ALL
     print(mensaje)
 
-def imp_marco (mensaje, color = None):
+def imp_marco(mensaje, color = None):
     frases = mensaje.split("\n")
     long_frase = [len(frase) for frase in frases]
     long_max = max(long_frase)

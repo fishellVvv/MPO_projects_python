@@ -1,6 +1,5 @@
 from random import randint, shuffle
 
-
 def generar_password(longitud):
     if longitud < 4:
         raise ValueError("mínimo 4")

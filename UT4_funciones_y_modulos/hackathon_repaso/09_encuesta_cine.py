@@ -1,7 +1,7 @@
 entrada = ""
 lista = []
 
-while (entrada != "fin"):
+while entrada != "fin":
     entrada = input("Introduce el título de una película: ")
     if entrada != "fin":
         lista.append(entrada)

@@ -2,5 +2,8 @@
   "python.analysis.autoImportCompletions": true,
   "python.analysis.typeCheckingMode": "standard",
   "python-envs.defaultEnvManager": "ms-python.python:system",
-  "python-envs.pythonProjects": []
+  "python-envs.pythonProjects": [],
+
+  "cSpell.language": "es,es-ES,en,en-GB",
+  "cSpell.enabled": true
 }

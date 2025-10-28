@@ -1,0 +1,3 @@
+datetime, userName, access
+2025-10-28T12:09:00, Victor, True
+2025-10-28T12:09:12, Raquel, False

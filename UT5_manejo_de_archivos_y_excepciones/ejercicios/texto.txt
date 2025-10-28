@@ -1,1 +1,1 @@
-Escribe un programa que abra un archivo de texto y reemplace todas las ocurrencias de una p-----a específica por otra p-----a. El programa debe definir una función que reciba el nombre del archivo, la p-----a a censurar y la p-----a de reemplazo, y luego realice la censura en el archivo.
+Escribe un programa que abra un archivo de texto y reemplace todas las ocurrencias de una pal específica por otra pal. El programa debe definir una función que reciba el nombre del archivo, la pal a censurar y la pal de reemplazo, y luego realice la censura en el archivo.

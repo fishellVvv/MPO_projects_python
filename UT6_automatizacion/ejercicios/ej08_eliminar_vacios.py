@@ -7,21 +7,20 @@ def remove_empty(path):
         raise NotADirectoryError(f"{path} no es un directorio")
 
     removed = []
-    list_content = os.listdir(path)
-    for item in list_content:
+    for item in os.listdir(path):
         path_item = os.path.join(path, item)
-        if os.path.isfile(path_item):
-            with open(path_item, "r") as file:
-                content = file.read()
-                if not content:
-                    os.remove(path_item)
-                    removed.append(item)
+        if os.path.isfile(path_item) and os.path.getsize(path_item) == 0:
+            try:
+                os.remove(path_item)
+                removed.append(item)
+            except PermissionError:
+                print(f"El archivo {item} no se pudo eliminar (en uso)")
 
     return removed
 
 path = input("Indica la ruta del directorio:\n")
 
 try:
-    print(remove_empty(path))
+    print(f"Eliminados: {remove_empty(path)}")
 except Exception as e:
     print(e)

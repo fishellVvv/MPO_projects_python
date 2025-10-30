@@ -9,7 +9,7 @@ def make_directory(path):
             os.mkdir(path_splitted[i])
         os.chdir(path_splitted[i])
 
-    return f"El directorio {path} a sido creado con éxito"
+    return f"El directorio {path} ha sido creado con éxito"
 
 path = input("Indica el nombre del nuevo directorio que quieres crear:\n")
 

@@ -8,7 +8,7 @@ def delete_file(path):
     
     os.remove(path)
 
-    return f"El archivo {path} a sido eliminado con éxito"
+    return f"El archivo {path} ha sido eliminado con éxito"
     
 path = input("Indica la ruta del fichero que quieres eliminar:\n")
 

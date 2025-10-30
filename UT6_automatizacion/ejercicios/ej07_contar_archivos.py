@@ -7,8 +7,8 @@ def count_files(path):
         raise NotADirectoryError(f"{path} no es un directorio")
 
     counter = 0
-    content = os.listdir(path)
-    for item in content:
+    list_content = os.listdir(path)
+    for item in list_content:
         path_item = os.path.join(path, item)
         if os.path.isfile(path_item):
             counter += 1

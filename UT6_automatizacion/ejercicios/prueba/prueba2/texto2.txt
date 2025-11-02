@@ -1,2 +1,0 @@
-hola,
-texto de prueba

@@ -28,23 +28,16 @@ def monitor_path(path):
     
     prev_snap = {}
     while True:
-        # (si no existe estado anterior, crearlo)
         if not prev_snap:
             prev_snap = make_snapshot(path)
             time.sleep(3)
             continue
 
-        # leer los archivos del directorio
         curr_snap = make_snapshot(path)
-        # comparar con el último estado guardado
-        # registrar los cambios
-            # creados: claves en curr que no están en prev.
-        created = curr_snap.keys() - prev_snap.keys()
-            # eliminados: claves en prev que no están en curr.
-        deleted = prev_snap.keys() - curr_snap.keys()
-        # modificados: intersección de claves donde (mtime, size) difiere.
-        modified = {item for item in (curr_snap.keys() & prev_snap.keys()) if curr_snap[item] != prev_snap[item]}
 
+        created = curr_snap.keys() - prev_snap.keys()
+        deleted = prev_snap.keys() - curr_snap.keys()
+        modified = {item for item in (curr_snap.keys() & prev_snap.keys()) if curr_snap[item] != prev_snap[item]}
         if created or deleted or modified:
             with open(os.path.join(path, "log.txt"), "a", encoding="utf-8") as log:
                 for item in sorted(created):
@@ -69,9 +62,7 @@ def monitor_path(path):
                     log.write(log_line)
                     print(log_line, end="")
 
-        # guardar el estado actual
         prev_snap = curr_snap
-
         time.sleep(3)
 
 path = input("Indica la ruta que quieres monitorear:\n")

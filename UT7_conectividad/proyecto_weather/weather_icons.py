@@ -62,13 +62,3 @@ WEATHER_ICONS = {
              
 """
 }
-
-print(WEATHER_ICONS["clear"])
-print(WEATHER_ICONS["partly_cloudy"])
-print(WEATHER_ICONS["cloudy"])
-print(WEATHER_ICONS["light_rain"])
-print(WEATHER_ICONS["heavy_rain"])
-print(WEATHER_ICONS["storm"])
-print(WEATHER_ICONS["snow"])
-print(WEATHER_ICONS["fog"])
-print(WEATHER_ICONS["windy"])

@@ -1,3 +1,5 @@
+import copy
+
 def cal_adj_pos(matrix, x, y):
     adj = []
 
@@ -15,24 +17,48 @@ def cal_adj_pos(matrix, x, y):
 
 def day04(matrix):
     result = 0
-    print(matrix) # debug
+
     for x in range(len(matrix)):
         for y in range(len(matrix[x])):
-            print(matrix[x][y], end="") # debug
             adjacents = cal_adj_pos(matrix, x, y)
-            print(f" -> {adjacents}", end="") # debug
             roll_count = 0
+
             for r in adjacents:
                 if r == "@":
                     roll_count += 1
-            print(f" -> {roll_count}") # debug
+
             if matrix[x][y] == "@" and roll_count < 4:
                 result += 1
-        print() # debug
+
     return result
 
-def day04b(matrix):
-    pass
+def day04b_mod(matrix):
+    matrix_mod = copy.deepcopy(matrix)
+    result = 0
+    for x in range(len(matrix)):
+        for y in range(len(matrix[x])):
+            adjacents = cal_adj_pos(matrix, x, y)
+            roll_count = 0
+            
+            for r in adjacents:
+                if r == "@":
+                    roll_count += 1
+
+            if matrix[x][y] == "@" and roll_count < 4:
+                result += 1
+            matrix_mod[x][y] = ("x" if matrix[x][y] == "@" and roll_count < 4 else matrix[x][y])
+
+    return result, matrix_mod
+
+def day04b(matrix, res_ini):
+    result = res_ini
+    res_mat, matrix_mod = day04b_mod(matrix)
+
+    if res_mat != 0:
+        result += res_mat
+        return day04b(matrix_mod, result)
+    else:
+        return result
 
 lines = list()
 with open("retos_programacion/retos_online/adventofcode_25/day04.txt", "r") as f:
@@ -47,4 +73,4 @@ with open("retos_programacion/retos_online/adventofcode_25/day04.txt", "r") as f
         matrix.append(row)
 
 print(day04(matrix))
-print(day04b(matrix))
+print(day04b(matrix, 0))

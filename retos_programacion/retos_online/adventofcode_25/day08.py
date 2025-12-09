@@ -13,17 +13,12 @@ def day08(cords):
                 distances.append([calc_dist(cords[i], cords[j]), i, j])
 
     connections = []
-    nd = 10
+    nd = 1000
     for dist in sorted(distances):
         if len(connections) < nd:
             connections.append([dist[1], dist[2]])
 
-    print(f"connections:") # debug
-    for con in connections:
-        print(f"{con}") # debug
-
     circuits = [[i] for i in range(len(cords))]
-
     for a, b in connections:
         circ_a = None
         circ_b = None
@@ -46,10 +41,6 @@ def day08(cords):
 
         circuits.remove(circ_b)
 
-    print(f"circuits:") # debug
-    for circ in circuits:
-        print(f"{circ}") # debug
-
     circ_lens = reversed(sorted([len(circ) for circ in circuits]))
 
     nc = 3
@@ -62,12 +53,49 @@ def day08(cords):
     return result
 
 def day08b(cords):
-    result = 0
-    
-    return result
+    result = 1
+
+    distances = []
+    for i in range(len(cords)):
+        for j in range(len(cords)):
+            if j > i:
+                distances.append([calc_dist(cords[i], cords[j]), i, j])
+
+    connections = []
+    for dist in sorted(distances):
+        connections.append([dist[1], dist[2]])
+
+    circuits = [[i] for i in range(len(cords))]
+    i_last = []
+    j_last = []
+    for i, j in connections:
+        circ_i = None
+        circ_j = None
+
+        for circ in circuits:
+            if i in circ:
+                circ_i = circ
+            if j in circ:
+                circ_j = circ
+
+        if circ_i is None or circ_j is None:
+            continue
+
+        if circ_i is circ_j:
+            continue
+
+        for n in circ_j:
+            if n not in circ_i:
+                circ_i.append(n)
+
+        circuits.remove(circ_j)
+        i_last = cords[i]
+        j_last = cords[j]
+
+    return i_last[0] * j_last[0]
 
 lines = list()
-with open("retos_programacion/retos_online/adventofcode_25/day08ex.txt", "r") as f:
+with open("retos_programacion/retos_online/adventofcode_25/day08.txt", "r") as f:
     lines = f.read().splitlines()
     cords = []
     for line in lines:

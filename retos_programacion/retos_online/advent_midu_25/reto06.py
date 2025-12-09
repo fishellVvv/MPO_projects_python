@@ -1,28 +1,22 @@
 from typing import List, Dict
 
 def match_gloves(gloves: List[Dict[str, str]]) -> List[str]:
-    order = []
-    counts = {}
+    pairs = []
+    singles = []
 
     for glove in gloves:
-        color = glove["color"]
         hand = glove["hand"]
+        color = glove["color"]
 
-        if color not in counts:
-            counts[color] = {"L": 0, "R": 0}
-            order.append(color)
+        lost_pair = {"hand": 'R', "color": color} if hand == "L" else {"hand": 'L', "color": color}
 
-        counts[color][hand] += 1
+        if lost_pair in singles:
+            singles.remove(lost_pair)
+            pairs.append(color)
+        else:
+            singles.append(glove)
 
-    result = []
-    for color in order:
-        left = counts[color]["L"]
-        right = counts[color]["R"]
-        pairs = min(left, right)
-
-        result.extend([color] * pairs)
-
-    return result
+    return pairs
 
 gloves = [
     { "hand": 'L', "color": 'red' },
